@@ -16,34 +16,37 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "Campo obrigatório")
 	@Size(min = 3, max = 100, message = "Este campo deve conter no mínimo 3 caracteres e no máximo 100 caracteres")
 	private String nome;
-	
+
 	@Positive(message = "Campo não pode ter valor negativo")
 	@NotNull(message = "Campo obrigatório")
 	private Double preco;
-	
+
 	@NotBlank(message = "Campo obrigatório")
 	@Size(min = 10, max = 255, message = "Este campo deve conter no mínimo 10 caracteres e no máximo 255 caracteres")
 	private String descricao;
-	
+
 	@Positive(message = "Campo não pode ter valor negativo")
 	@NotNull(message = "Campo obrigatório")
 	private Integer quantidade;
-	
+
 	private String imagem;
-	
+
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Categoria categoria;
-	
+
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
+
 	public Long getId() {
 		return id;
 	}
@@ -91,8 +94,20 @@ public class Produto {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
-	
-	
-	
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
